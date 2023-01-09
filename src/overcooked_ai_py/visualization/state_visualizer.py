@@ -53,6 +53,9 @@ class StateVisualizer:
         os.path.join(GRAPHICS_DIR, "chefs.png"),
         os.path.join(GRAPHICS_DIR, "chefs.json"),
     )
+
+    ASTROS_IMG = MultiFramePygameImage(os.path.join(GRAPHICS_DIR, 'astros.png'), os.path.join(GRAPHICS_DIR, 'chefs.json'))
+
     ARROW_IMG = pygame.image.load(os.path.join(GRAPHICS_DIR, "arrow.png"))
     INTERACT_IMG = pygame.image.load(
         os.path.join(GRAPHICS_DIR, "interact.png")
@@ -417,8 +420,15 @@ class StateVisualizer:
                         held_object_name = "soup-tomato"
                 else:
                     held_object_name = held_obj.name
+            if player_color_name == "green":
+                self.ASTROS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), chef_frame_name(direction_name, held_object_name))
+                self.ASTROS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), hat_frame_name(direction_name, player_color_name))
+            else:
+                self.CHEFS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), chef_frame_name(direction_name, held_object_name))
+                self.CHEFS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), hat_frame_name(direction_name, player_color_name))
 
-            self.CHEFS_IMG.blit_on_surface(
+
+"""            self.CHEFS_IMG.blit_on_surface(
                 surface,
                 self._position_in_unscaled_pixels(player.position),
                 chef_frame_name(direction_name, held_object_name),
@@ -427,7 +437,8 @@ class StateVisualizer:
                 surface,
                 self._position_in_unscaled_pixels(player.position),
                 hat_frame_name(direction_name, player_color_name),
-            )
+            )""" #old, original code
+
 
     @staticmethod
     def _soup_frame_name(ingredients_names, status):
