@@ -4,6 +4,9 @@ import os
 
 import pygame
 
+import logging
+logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+
 from overcooked_ai_py.mdp.actions import Action, Direction
 from overcooked_ai_py.mdp.layout_generator import (
     COUNTER,
@@ -420,6 +423,7 @@ class StateVisualizer:
                         held_object_name = "soup-tomato"
                 else:
                     held_object_name = held_obj.name
+            logging.debug("Player color name: ", player_color_name)
             if player_color_name == "green":
                 self.ASTROS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), chef_frame_name(direction_name, held_object_name))
                 self.ASTROS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), hat_frame_name(direction_name, player_color_name))
@@ -428,7 +432,8 @@ class StateVisualizer:
                 self.CHEFS_IMG.blit_on_surface(surface, self._position_in_unscaled_pixels(player.position), hat_frame_name(direction_name, player_color_name))
 
 
-"""            self.CHEFS_IMG.blit_on_surface(
+            """
+            self.CHEFS_IMG.blit_on_surface(
                 surface,
                 self._position_in_unscaled_pixels(player.position),
                 chef_frame_name(direction_name, held_object_name),
