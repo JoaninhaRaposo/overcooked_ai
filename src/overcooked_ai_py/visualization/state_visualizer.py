@@ -2,10 +2,11 @@ import copy
 import math
 import os
 
+PATH = os.getcwd()
 import pygame
 
 import logging
-logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename=PATH+'state_vis.log', encoding='utf-8', level=logging.DEBUG)
 
 from overcooked_ai_py.mdp.actions import Action, Direction
 from overcooked_ai_py.mdp.layout_generator import (
