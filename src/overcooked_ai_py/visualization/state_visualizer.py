@@ -42,20 +42,20 @@ roboto_path = os.path.join(FONTS_DIR, "Roboto-Regular.ttf")
 
 class StateVisualizer:
     TERRAINS_IMG = MultiFramePygameImage(
-        os.path.join(GRAPHICS_DIR, "terrain.png"),
-        os.path.join(GRAPHICS_DIR, "terrain.json"),
+        os.path.join(GRAPHICS_DIR, "terrainz.png"),
+        os.path.join(GRAPHICS_DIR, "terrainz.json"),
     )
     OBJECTS_IMG = MultiFramePygameImage(
-        os.path.join(GRAPHICS_DIR, "objects.png"),
-        os.path.join(GRAPHICS_DIR, "objects.json"),
+        os.path.join(GRAPHICS_DIR, "objectsz.png"),
+        os.path.join(GRAPHICS_DIR, "objectsz.json"),
     )
     SOUPS_IMG = MultiFramePygameImage(
-        os.path.join(GRAPHICS_DIR, "soups.png"),
-        os.path.join(GRAPHICS_DIR, "soups.json"),
+        os.path.join(GRAPHICS_DIR, "soupsz.png"),
+        os.path.join(GRAPHICS_DIR, "soupsz.json"),
     )
     CHEFS_IMG = MultiFramePygameImage(
-        os.path.join(GRAPHICS_DIR, "chefs.png"),
-        os.path.join(GRAPHICS_DIR, "chefs.json"),
+        os.path.join(GRAPHICS_DIR, "chefsz.png"),
+        os.path.join(GRAPHICS_DIR, "chefsz.json"),
     )
 
     ASTROS_IMG = MultiFramePygameImage(os.path.join(GRAPHICS_DIR, 'astros.png'), os.path.join(GRAPHICS_DIR, 'chefs.json'))
