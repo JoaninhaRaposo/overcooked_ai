@@ -1450,8 +1450,15 @@ class OvercookedGridworld(object):
             if action != Action.INTERACT:
                 continue
 
+
+
             pos, o = player.position, player.orientation
             i_pos = Action.move_in_direction(pos, o)
+            if player_idx == 0:
+                if i_pos == new_state.players[1]:
+                    obj = player.remove_object()
+                    new_state.players[1].set_object(obj)
+                    
             terrain_type = self.get_terrain_type_at_pos(i_pos)
 
             # NOTE: we always log pickup/drop before performing it, as that's
