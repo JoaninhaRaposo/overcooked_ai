@@ -1481,6 +1481,29 @@ class OvercookedGridworld(object):
                     obj = player.remove_object()
                     new_state.add_object(obj, i_pos)
 
+                elif not player.has_object() and new_state.has_object(i_pos):
+                    obj_name = new_state.get_object(i_pos).name
+                    self.log_object_pickup(
+                        events_infos,
+                        new_state,
+                        obj_name,
+                        pot_states,
+                        player_idx,
+                    )
+
+                    # Pick up object from counter
+                    obj = new_state.remove_object(i_pos)
+                    player.set_object(obj, player_idx)
+
+            elif terrain_type == "O" and player.held_object is None:
+                self.log_object_pickup(
+                    events_infos, new_state, "onion", pot_states, player_idx
+                )
+
+                # Onion pickup from dispenser
+                obj = ObjectState("onion", pos)
+                player.set_object(obj, player_idx)
+
             elif terrain_type == "T" and player.held_object is None:
                 # Tomato pickup from dispenser
                 player.set_object(ObjectState("tomato", pos), player_idx)
