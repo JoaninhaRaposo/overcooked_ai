@@ -1463,14 +1463,8 @@ class OvercookedGridworld(object):
             # what the logic of determining whether the pickup/drop is useful assumes
             
             with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
-                f.write(str(terrain_type) + "\n" + str(player_idx) + "\n" + str(player.has_object()))
+                f.write(str(terrain_type) + "\n" + str(player_idx) + "\n" + str(player.has_object()) + "\n" + str(i_pos == new_state.players[1].position))
                 f.close()
-
-            # place object inside Astro
-            if player_idx == 0 and player.has_object():
-                if i_pos == new_state.players[1].position:
-                    obj = player.remove_object()    #remove obj from player
-                    new_state.players[1].set_object(obj, 1) #set obj inside astro
 
             if terrain_type == "X":
                 if player.has_object() and not new_state.has_object(i_pos):
@@ -1486,7 +1480,6 @@ class OvercookedGridworld(object):
                     # Drop object on counter
                     obj = player.remove_object()
                     new_state.add_object(obj, i_pos)
-
 
             elif terrain_type == "T" and player.held_object is None:
                 # Tomato pickup from dispenser
@@ -1572,6 +1565,12 @@ class OvercookedGridworld(object):
 
                     # Log soup delivery
                     events_infos["soup_delivery"][player_idx] = True
+
+            # place object inside Astro
+            elif player_idx == 0 and player.has_object():
+                if i_pos == new_state.players[1].position:
+                    obj = player.remove_object()    #remove obj from player
+                    new_state.players[1].set_object(obj, 1) #set obj inside astro
 
         return sparse_reward, shaped_reward
 
