@@ -1727,11 +1727,14 @@ class OvercookedGridworld(object):
     #######################
 
     def get_valid_player_positions(self):
-        return self.terrain_pos_dict[" "]
+        return self.terrain_pos_dict[" "] + self.terrain_pos_dict["I"] #Debug, possibilidade de dar erro
 
     def get_valid_joint_player_positions(self):
         """Returns all valid tuples of the form (p0_pos, p1_pos, p2_pos, ...)"""
         valid_positions = self.get_valid_player_positions()
+        with open(f"{PATH}/ovmdp_debug_joana.txt", "w") as f:
+            f.write(str("valid_positions e: ")  + str(valid_joint_positions))
+            f.close()
         all_joint_positions = list(
             itertools.product(valid_positions, repeat=self.num_players)
         )
