@@ -5,6 +5,8 @@ from collections import Counter, defaultdict
 from functools import reduce
 
 import numpy as np
+import os
+PATH = os.path.abspath(os.getcwd())
 
 from overcooked_ai_py.mdp.actions import Action, Direction
 from overcooked_ai_py.utils import (
@@ -1454,16 +1456,21 @@ class OvercookedGridworld(object):
 
             pos, o = player.position, player.orientation
             i_pos = Action.move_in_direction(pos, o)
-            if player_idx == 0:
-                if i_pos == new_state.players[1]:
-                    obj = player.remove_object()
-                    new_state.players[1].set_object(obj)
                     
             terrain_type = self.get_terrain_type_at_pos(i_pos)
 
             # NOTE: we always log pickup/drop before performing it, as that's
             # what the logic of determining whether the pickup/drop is useful assumes
-            if terrain_type == "X":
+    
+            if player_idx == 0:
+                with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
+                    f.write(str(new_state.players[1]))
+                    f.close()
+                if i_pos == new_state.players[1].position:
+                    obj = player.remove_object()
+                    new_state.players[1].set_object(obj)
+
+            elif terrain_type == "X":
                 if player.has_object() and not new_state.has_object(i_pos):
                     obj_name = player.get_object().name
                     self.log_object_drop(
