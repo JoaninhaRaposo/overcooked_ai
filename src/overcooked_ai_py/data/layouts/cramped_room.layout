@@ -12,7 +12,7 @@
                 X             X
                 X     XXXXXXIXX
                 X     XX XXXIXX
-                X 2   IIIIIIIXX
+                X 2          XX
                 XXXXXXXXXXXXXXX""",
     "start_bonus_orders": [],
     "start_all_orders" : [
