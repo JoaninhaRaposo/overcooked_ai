@@ -1463,7 +1463,7 @@ class OvercookedGridworld(object):
             # what the logic of determining whether the pickup/drop is useful assumes
             
             with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
-                f.write(str(terrain_type), str(player_idx), str(player.has_object()))
+                f.write(str(terrain_type) + "\n" + str(player_idx) + "\n" + str(player.has_object()))
                 f.close()
 
             # place object inside Astro

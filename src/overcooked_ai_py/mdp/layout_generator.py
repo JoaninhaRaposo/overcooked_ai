@@ -509,7 +509,7 @@ class Grid(object):
     def location_is_empty(self, location):
         x, y = location
         with open(f"{PATH}/ovmdp_debug_joana.txt", "w") as f:
-            f.write(str("estou ao pe do gelo?"), str(self.mtx[x][y] == TYPE_TO_CODE[ICE]))
+            f.write(str("estou ao pe do gelo?") + "\n" + str(self.mtx[x][y] == TYPE_TO_CODE[ICE]))
             f.close()
         return (self.mtx[x][y] == TYPE_TO_CODE[EMPTY] or self.mtx[x][y] == TYPE_TO_CODE[ICE])
 
