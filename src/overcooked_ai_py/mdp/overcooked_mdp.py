@@ -1465,9 +1465,9 @@ class OvercookedGridworld(object):
             # what the logic of determining whether the pickup/drop is useful assumes
 
             # place object inside Astro
-            if player_idx == 0:
+            if player_idx == 0 and player.has_object():
                 if i_pos == new_state.players[1].position:
-                    obj = player.remove_object()    #remove obj from astro
+                    obj = player.remove_object()    #remove obj from player
                     new_state.players[1].set_object(obj, 1) #set obj inside astro
 
             if terrain_type == "X":
