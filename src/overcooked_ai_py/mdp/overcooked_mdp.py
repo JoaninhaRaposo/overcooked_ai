@@ -1454,8 +1454,6 @@ class OvercookedGridworld(object):
             if action != Action.INTERACT:
                 continue
 
-
-
             pos, o = player.position, player.orientation
             i_pos = Action.move_in_direction(pos, o)
                     
@@ -1463,6 +1461,10 @@ class OvercookedGridworld(object):
 
             # NOTE: we always log pickup/drop before performing it, as that's
             # what the logic of determining whether the pickup/drop is useful assumes
+            
+            with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
+                f.write(str(terrain_type), str(player_idx), str(player.has_object()))
+                f.close()
 
             # place object inside Astro
             if player_idx == 0 and player.has_object():
