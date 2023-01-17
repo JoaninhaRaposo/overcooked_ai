@@ -637,7 +637,7 @@ class SoupState(ObjectState):
         obj_dict = copy.deepcopy(obj_dict)
         if obj_dict["name"] != "soup":
             with open(f"{PATH}/debug1.txt", "w") as f:
-                f.write("Entrou if")
+                f.write(str(super(SoupState, cls).from_dict(obj_dict)))
                 f.close()
             return super(SoupState, cls).from_dict(obj_dict)
 
@@ -1018,10 +1018,10 @@ class OvercookedState(object):
             PlayerState.from_dict(p) for p in state_dict["players"]
         ]
         object_list = [SoupState.from_dict(o) for o in state_dict["objects"]]
-        with open(f"{PATH}/debug2.txt", "w") as f:
-            f.write(str(object_list))
-            f.close()
         state_dict["objects"] = {ob.position: ob for ob in object_list}
+        with open(f"{PATH}/debug2.txt", "w") as f:
+            f.write(str(state_dict))
+            f.close()
         return OvercookedState(**state_dict)
 
 
