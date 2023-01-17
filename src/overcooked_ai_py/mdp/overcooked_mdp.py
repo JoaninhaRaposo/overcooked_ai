@@ -1161,6 +1161,10 @@ class OvercookedGridworld(object):
         params_to_overwrite = params_to_overwrite.copy()
         base_layout_params = read_layout_dict(layout_name)
 
+        with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
+            f.write(str(base_layout_params))
+            f.close()
+
         grid = base_layout_params["grid"]
         del base_layout_params["grid"]
         base_layout_params["layout_name"] = layout_name
@@ -1465,10 +1469,6 @@ class OvercookedGridworld(object):
 
             # NOTE: we always log pickup/drop before performing it, as that's
             # what the logic of determining whether the pickup/drop is useful assumes
-            
-            with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
-                f.write(str(player_idx) + "\n" + str(new_state.players[1].held_object))
-                f.close()
 
             #Update time ball
             if player_idx == 0 and new_state.has_object(i_pos): # if human has ball, update time ball
