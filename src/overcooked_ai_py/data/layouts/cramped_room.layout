@@ -24,6 +24,8 @@
             "name": "onion", 
             "position": [5, 5]
           }],
+        "bonus_orders": [], 
+        "all_orders": [{"ingredients": ["onion", "onion","onion"]}]
         },
     "rew_shaping_params": None
 }
