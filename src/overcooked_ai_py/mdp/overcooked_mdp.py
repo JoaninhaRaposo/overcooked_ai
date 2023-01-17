@@ -1473,7 +1473,7 @@ class OvercookedGridworld(object):
             # what the logic of determining whether the pickup/drop is useful assumes
 
             #Update time ball
-            if player_idx == 0 and new_state.has_object(i_pos): # if human has ball, update time ball
+            if player_idx == 0 and player.has_object(): # if human has ball, update time ball
                 add_time_ball = time()  #registar tempo deste time step, e depois adicionar a diferença
 
             if terrain_type == "X":
