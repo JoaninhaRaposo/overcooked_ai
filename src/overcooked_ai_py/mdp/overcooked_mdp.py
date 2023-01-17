@@ -3,6 +3,7 @@ import itertools
 import warnings
 from collections import Counter, defaultdict
 from functools import reduce
+from time import time
 
 import numpy as np
 import os
@@ -1406,6 +1407,7 @@ class OvercookedGridworld(object):
         (
             sparse_reward_by_agent,
             shaped_reward_by_agent,
+            time_ball_by_human,
         ) = self.resolve_interacts(new_state, joint_action, events_infos)
         assert new_state.player_positions == state.player_positions
         assert new_state.player_orientations == state.player_orientations
@@ -1422,6 +1424,7 @@ class OvercookedGridworld(object):
             "event_infos": events_infos,
             "sparse_reward_by_agent": sparse_reward_by_agent,
             "shaped_reward_by_agent": shaped_reward_by_agent,
+            "time_ball_by_human": time_ball_by_human,
         }
         if display_phi:
             assert (
@@ -1446,6 +1449,7 @@ class OvercookedGridworld(object):
             [0] * self.num_players,
             [0] * self.num_players,
         )
+        add_time_ball = 0
 
         for player_idx, (player, action) in enumerate(
             zip(new_state.players, joint_action)
@@ -1466,6 +1470,10 @@ class OvercookedGridworld(object):
                 f.write(str(player_idx) + "\n" + str(new_state.players[1].held_object))
                 f.close()
 
+            #Update time ball
+            if player_idx == 0 and new_state.has_object(i_pos): # if human has ball, update time ball
+                add_time_ball = time()  #registar tempo deste time step, e depois adicionar a diferença
+
             if terrain_type == "X":
                 if player.has_object() and not new_state.has_object(i_pos):
                     obj_name = player.get_object().name
@@ -1477,11 +1485,14 @@ class OvercookedGridworld(object):
                         player_idx,
                     )
 
-                    # Drop object on counter
+
+                    # Drop object on counter  
                     obj = player.remove_object()
                     new_state.add_object(obj, i_pos)
+                    #Stop counter of ball
+                    #Do nothing
 
-                elif not player.has_object() and new_state.has_object(i_pos):
+                elif not player.has_object() and new_state.has_object(i_pos): 
                     obj_name = new_state.get_object(i_pos).name
                     self.log_object_pickup(
                         events_infos,
@@ -1495,6 +1506,10 @@ class OvercookedGridworld(object):
                     obj = new_state.remove_object(i_pos)
                     player.set_object(obj, player_idx)
 
+                    
+
+               
+
             elif terrain_type == "O" and player.held_object is None:
                 self.log_object_pickup(
                     events_infos, new_state, "onion", pot_states, player_idx
@@ -1503,10 +1518,12 @@ class OvercookedGridworld(object):
                 # Onion pickup from dispenser
                 obj = ObjectState("onion", pos)
                 player.set_object(obj, player_idx)
+                
 
             elif terrain_type == "T" and player.held_object is None:
                 # Tomato pickup from dispenser
                 player.set_object(ObjectState("tomato", pos), player_idx)
+                
 
             elif terrain_type == "D" and player.held_object is None:
                 self.log_object_pickup(
@@ -1595,7 +1612,7 @@ class OvercookedGridworld(object):
                     obj = player.remove_object()    #remove obj from player
                     new_state.players[1].set_object(obj, 1) #set obj inside astro
 
-        return sparse_reward, shaped_reward
+        return sparse_reward, shaped_reward, add_time_ball
 
     def get_recipe_value(
         self,
