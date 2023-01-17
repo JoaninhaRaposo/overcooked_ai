@@ -1171,10 +1171,11 @@ class OvercookedGridworld(object):
                 base_layout_params["start_state"]
             )
 
+        '''
         with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
             f.write(str(base_layout_params["start_state"]))
             f.close()
-
+        '''
         # Clean grid
         grid = [layout_row.strip() for layout_row in grid.split("\n")]
         return OvercookedGridworld.from_grid(
