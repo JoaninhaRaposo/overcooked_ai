@@ -1161,9 +1161,7 @@ class OvercookedGridworld(object):
         params_to_overwrite = params_to_overwrite.copy()
         base_layout_params = read_layout_dict(layout_name)
 
-        with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
-            f.write(str(base_layout_params))
-            f.close()
+
 
         grid = base_layout_params["grid"]
         del base_layout_params["grid"]
@@ -1172,6 +1170,10 @@ class OvercookedGridworld(object):
             base_layout_params["start_state"] = OvercookedState.from_dict(
                 base_layout_params["start_state"]
             )
+
+        with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
+            f.write(str(base_layout_params["start_state"]))
+            f.close()
 
         # Clean grid
         grid = [layout_row.strip() for layout_row in grid.split("\n")]
