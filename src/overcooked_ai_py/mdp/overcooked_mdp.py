@@ -1174,12 +1174,11 @@ class OvercookedGridworld(object):
             base_layout_params["start_state"] = OvercookedState.from_dict(
                 base_layout_params["start_state"]
             )
-
-        '''
+        
         with open(f"{PATH}/ovmdp_debug.txt", "w") as f:
-            f.write(str(base_layout_params["start_state"]))
-            f.close()
-        '''
+            f.write(str(base_layout_params))
+            f.close()    
+
         # Clean grid
         grid = [layout_row.strip() for layout_row in grid.split("\n")]
         return OvercookedGridworld.from_grid(
@@ -1223,6 +1222,10 @@ class OvercookedGridworld(object):
         # After removing player positions from grid we have a terrain mtx
         mdp_config["terrain"] = layout_grid
         mdp_config["start_player_positions"] = player_positions
+        
+        with open(f"{PATH}/debug3.txt", "w") as f:
+            f.write(str(mdp_config))
+            f.close()
 
         for k, v in params_to_overwrite.items():
             curr_val = mdp_config.get(k, None)
