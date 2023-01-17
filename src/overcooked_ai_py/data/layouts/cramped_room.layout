@@ -18,5 +18,11 @@
     "start_all_orders" : [
         { "ingredients" : ["onion", "onion", "onion"]}
     ],
+    "start_state" : {
+        "objects": [{
+            "name": "onion", 
+            "position": [2, 0]
+          }],
+        },
     "rew_shaping_params": None
 }
