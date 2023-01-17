@@ -50,7 +50,16 @@ setup(
     # removed overlapping dependencies
     extras_require={
         "harl": [
-
+            "wandb",
+            "GitPython",
+            "memory_profiler",
+            "sacred",
+            "pymongo",
+            "matplotlib",
+            "requests",
+            "seaborn==0.9.0",
+            "ray[rllib]==2.0.0",
+            "protobuf",
         ]
     },
 )
