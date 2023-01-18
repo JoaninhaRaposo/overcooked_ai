@@ -1421,7 +1421,6 @@ class OvercookedGridworld(object):
         (
             sparse_reward_by_agent,
             shaped_reward_by_agent,
-            time_ball_by_human,
         ) = self.resolve_interacts(new_state, joint_action, events_infos)
         assert new_state.player_positions == state.player_positions
         assert new_state.player_orientations == state.player_orientations
@@ -1438,7 +1437,6 @@ class OvercookedGridworld(object):
             "event_infos": events_infos,
             "sparse_reward_by_agent": sparse_reward_by_agent,
             "shaped_reward_by_agent": shaped_reward_by_agent,
-            "time_ball_by_human": time_ball_by_human,
         }
         if display_phi:
             assert (
@@ -1463,7 +1461,6 @@ class OvercookedGridworld(object):
             [0] * self.num_players,
             [0] * self.num_players,
         )
-        add_time_ball = 0
 
         for player_idx, (player, action) in enumerate(
             zip(new_state.players, joint_action)
@@ -1480,9 +1477,6 @@ class OvercookedGridworld(object):
             # NOTE: we always log pickup/drop before performing it, as that's
             # what the logic of determining whether the pickup/drop is useful assumes
 
-            #Update time ball
-            if player_idx == 0 and player.has_object(): # if human has ball, update time ball
-                add_time_ball = time()  #registar tempo deste time step, e depois adicionar a diferença
 
             if terrain_type == "X":
                 if player.has_object() and not new_state.has_object(i_pos):
@@ -1622,7 +1616,7 @@ class OvercookedGridworld(object):
                     obj = player.remove_object()    #remove obj from player
                     new_state.players[1].set_object(obj, 1) #set obj inside astro
 
-        return sparse_reward, shaped_reward, add_time_ball
+        return sparse_reward, shaped_reward
 
     def get_recipe_value(
         self,
