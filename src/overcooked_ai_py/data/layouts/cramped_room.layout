@@ -18,5 +18,13 @@
     "start_all_orders" : [
         { "ingredients" : ["onion", "onion", "onion"]}
     ],
+    "start_state" : {
+        "players": [{"position": [4, 3], "orientation": [-1, 0], "held_object": None}, {"position": [4, 1], "orientation": [0, -1], "held_object": None}],
+        "objects": [{
+            "name": "onion",
+            "position": [10, 9]}],
+        "bonus_orders": [],
+        "all_orders": [{"ingredients": ["onion", "onion","onion"]}]
+    },
     "rew_shaping_params": None
 }
