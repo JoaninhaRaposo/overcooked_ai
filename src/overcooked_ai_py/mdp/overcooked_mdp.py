@@ -1415,6 +1415,10 @@ class OvercookedGridworld(object):
                 raise ValueError(
                     "Illegal action %s in state %s" % (action, state)
                 )
+        
+        with open(f"{PATH}/debugyy.txt", "w") as f:
+            f.write(str(state))
+            f.close()
 
         new_state = state.deepcopy()
         # Resolve interacts first
