@@ -1317,9 +1317,22 @@ class OvercookedGridworld(object):
             all_orders=self.start_all_orders,
         )
         with open(f"{PATH}/debug3.txt", "w") as f:
-            f.write(str(start_state))
+            f.write(str(self.layout_name))
             f.close()
         
+        if self.layout_name == "cramped_room":
+            obj = ObjectState("onion", (2,2))  
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (1,8))  
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (10,9))  
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (9,12))  
+            start_state.add_object(obj)
+        
+        with open(f"{PATH}/debugyy.txt", "w") as f:
+            f.write(str(start_state))
+            f.close()
         return start_state
 
     def get_random_start_state_fn(
@@ -1415,10 +1428,6 @@ class OvercookedGridworld(object):
                 raise ValueError(
                     "Illegal action %s in state %s" % (action, state)
                 )
-        
-        with open(f"{PATH}/debugyy.txt", "w") as f:
-            f.write(str(state))
-            f.close()
 
         new_state = state.deepcopy()
         # Resolve interacts first
