@@ -1222,10 +1222,6 @@ class OvercookedGridworld(object):
         # After removing player positions from grid we have a terrain mtx
         mdp_config["terrain"] = layout_grid
         mdp_config["start_player_positions"] = player_positions
-        
-        with open(f"{PATH}/debug3.txt", "w") as f:
-            f.write(str(mdp_config))
-            f.close()
 
         for k, v in params_to_overwrite.items():
             curr_val = mdp_config.get(k, None)
@@ -1320,6 +1316,10 @@ class OvercookedGridworld(object):
             bonus_orders=self.start_bonus_orders,
             all_orders=self.start_all_orders,
         )
+        with open(f"{PATH}/debug3.txt", "w") as f:
+            f.write(str(start_state))
+            f.close()
+        
         return start_state
 
     def get_random_start_state_fn(
