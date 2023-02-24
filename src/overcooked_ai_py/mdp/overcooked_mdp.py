@@ -396,6 +396,8 @@ class ObjectState(object):
         """
         self.name = name
         self._position = tuple(position)
+        self.status = 0
+        self.index = -1
 
     @property
     def position(self):
@@ -404,6 +406,14 @@ class ObjectState(object):
     @position.setter
     def position(self, new_pos):
         self._position = new_pos
+
+    def get_index(self):
+        return self.index
+    def get_status(self):
+        return self.status
+    
+    def set_status(self, status):
+        self.status = status
 
     def is_valid(self):
         return self.name in ["onion", "tomato", "dish"]
@@ -1321,13 +1331,20 @@ class OvercookedGridworld(object):
             f.close()
         
         if self.layout_name == "cramped_room":
-            obj = ObjectState("onion", (2,2))  
+            obj = ObjectState("onion", (2,2))
+            obj.index = 1  
             start_state.add_object(obj)
-            obj = ObjectState("onion", (1,8))  
+
+            obj = ObjectState("onion", (1,8))
+            obj.index = 2  
             start_state.add_object(obj)
-            obj = ObjectState("onion", (10,9))  
+
+            obj = ObjectState("onion", (10,9))
+            obj.index = 3  
             start_state.add_object(obj)
-            obj = ObjectState("onion", (9,12))  
+
+            obj = ObjectState("onion", (9,12))
+            obj.index = 4  
             start_state.add_object(obj)
         
         with open(f"{PATH}/debugyy.txt", "w") as f:
@@ -1506,9 +1523,15 @@ class OvercookedGridworld(object):
 
                         # Drop object on counter  
                         obj = player.remove_object()
+                        obj.set_status(0)
                         new_state.add_object(obj, i_pos)
-                        #Stop counter of ball
-                        #Do nothing
+                        with open(f"{PATH}/DummyAI.txt", "a") as f:
+                            f.write("Dei drop no counter")
+                            f.close()
+                        
+                        
+
+
 
                     elif not player.has_object() and new_state.has_object(i_pos): 
                         obj_name = new_state.get_object(i_pos).name
@@ -1522,7 +1545,9 @@ class OvercookedGridworld(object):
 
                         # Pick up object from counter
                         obj = new_state.remove_object(i_pos)
+                        obj.set_status(1)
                         player.set_object(obj, player_idx)
+                        
 
                         
 
@@ -1628,7 +1653,11 @@ class OvercookedGridworld(object):
                 elif player_idx == 0 and player.has_object():
                     if i_pos == new_state.players[1].position:
                         obj = player.remove_object()    #remove obj from player
+                        obj.set_status(2)
                         new_state.players[1].set_object(obj, 1) #set obj inside astro
+                        with open(f"{PATH}/DummyAI.txt", "a") as f:
+                            f.write("Dei drop no astro somehow")
+                            f.close()
 
         return sparse_reward, shaped_reward
 
@@ -1790,9 +1819,6 @@ class OvercookedGridworld(object):
     def get_valid_joint_player_positions(self):
         """Returns all valid tuples of the form (p0_pos, p1_pos, p2_pos, ...)"""
         valid_positions = self.get_valid_player_positions()
-        with open(f"{PATH}/ovmdp_debug_joana.txt", "w") as f:
-            f.write(str("valid_positions e: ")  + str(valid_joint_positions))
-            f.close()
         all_joint_positions = list(
             itertools.product(valid_positions, repeat=self.num_players)
         )
