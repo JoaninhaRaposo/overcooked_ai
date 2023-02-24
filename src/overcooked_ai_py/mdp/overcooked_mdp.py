@@ -1526,7 +1526,7 @@ class OvercookedGridworld(object):
                         obj.set_status(0)
                         new_state.add_object(obj, i_pos)
                         with open(f"{PATH}/DummyAI.txt", "a") as f:
-                            f.write("Dei drop no counter")
+                            f.write("Dei drop no counter \n")
                             f.close()
                         
                         
@@ -1656,7 +1656,7 @@ class OvercookedGridworld(object):
                         obj.set_status(2)
                         new_state.players[1].set_object(obj, 1) #set obj inside astro
                         with open(f"{PATH}/DummyAI.txt", "a") as f:
-                            f.write("Dei drop no astro somehow")
+                            f.write("Dei drop no astro somehow \n")
                             f.close()
 
         return sparse_reward, shaped_reward
