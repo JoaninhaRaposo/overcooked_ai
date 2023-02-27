@@ -413,8 +413,8 @@ class ObjectState(object):
         return self.index
     
     @index.setter
-    def index(self):
-        return self.status
+    def index(self, index):
+        self.index = index
     
     @property
     def status(self):
