@@ -741,7 +741,7 @@ class PlayerState(object):
     @property
     def pos_and_or(self):
         return (self.position, self.orientation)
-
+    @property
     def has_object(self):
         return self.held_object is not None
 
