@@ -1528,7 +1528,7 @@ class OvercookedGridworld(object):
 
                         # Drop object on counter  
                         obj = player.remove_object()
-                        obj.set_status(0)
+                        obj.status(0)
                         new_state.add_object(obj, i_pos)
                         
                         
@@ -1547,7 +1547,7 @@ class OvercookedGridworld(object):
 
                         # Pick up object from counter
                         obj = new_state.remove_object(i_pos)
-                        obj.set_status(1)
+                        obj.status(1)
                         player.set_object(obj, player_idx)
                         
 
@@ -1655,7 +1655,7 @@ class OvercookedGridworld(object):
                 elif player_idx == 0 and player.has_object():
                     if i_pos == new_state.players[1].position:
                         obj = player.remove_object()    #remove obj from player
-                        obj.set_status(2)
+                        obj.status(2)
                         new_state.players[1].set_object(obj, 1) #set obj inside astro
 
         return sparse_reward, shaped_reward
