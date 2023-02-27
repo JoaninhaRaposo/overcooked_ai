@@ -389,15 +389,16 @@ class ObjectState(object):
     State of an object in OvercookedGridworld.
     """
 
-    def __init__(self, name, position, **kwargs):
+    def __init__(self, name, position, index, status, **kwargs):
         """
         name (str): The name of the object
         position (int, int): Tuple for the current location of the object.
         """
         self.name = name
         self._position = tuple(position)
-        self.status = 0
-        self.index = -1
+        self.index = index
+        self.status = status
+
 
     @property
     def position(self):
@@ -922,13 +923,14 @@ class OvercookedState(object):
         assert self.has_object(pos)
         return self.objects[pos]
 
-    def add_object(self, obj, pos=None):
+    def add_object(self, obj, ind, status, pos=None):
         if pos is None:
             pos = obj.position
 
         assert not self.has_object(pos)
         obj.position = pos
         self.objects[pos] = obj
+
 
     def remove_object(self, pos):
         assert self.has_object(pos)
@@ -1339,20 +1341,15 @@ class OvercookedGridworld(object):
             f.close()
         
         if self.layout_name == "cramped_room":
-            obj = ObjectState("onion", (2,2))
-            obj.index = 1  
+            obj = ObjectState("onion", (2,2),1,0)
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (1,8),2,0)
             start_state.add_object(obj)
 
-            obj = ObjectState("onion", (1,8))
-            obj.index = 2  
+            obj = ObjectState("onion", (10,9),3,0)
             start_state.add_object(obj)
 
-            obj = ObjectState("onion", (10,9))
-            obj.index = 3  
-            start_state.add_object(obj)
-
-            obj = ObjectState("onion", (9,12))
-            obj.index = 4  
+            obj = ObjectState("onion", (9,12),4,0)
             start_state.add_object(obj)
         
         with open(f"{PATH}/debugyy.txt", "w") as f:
