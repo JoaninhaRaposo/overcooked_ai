@@ -923,7 +923,7 @@ class OvercookedState(object):
         assert self.has_object(pos)
         return self.objects[pos]
 
-    def add_object(self, obj, ind, status, pos=None):
+    def add_object(self, pos=None):
         if pos is None:
             pos = obj.position
 
