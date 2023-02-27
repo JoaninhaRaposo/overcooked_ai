@@ -407,12 +407,20 @@ class ObjectState(object):
     def position(self, new_pos):
         self._position = new_pos
 
-    def get_index(self):
+    @property
+    def index(self):
         return self.index
-    def get_status(self):
+    
+    @index.setter
+    def index(self):
         return self.status
     
-    def set_status(self, status):
+    @property
+    def status(self):
+        return self.status
+    
+    @status.setter
+    def status(self, status):
         self.status = status
 
     def is_valid(self):
@@ -432,10 +440,10 @@ class ObjectState(object):
         return hash((self.name, self.position))
 
     def __repr__(self):
-        return "{}@{}".format(self.name, self.position)
+        return "{}@{}, index: {}, status: {}".format(self.name, self.position, self.index, self.status)
 
     def to_dict(self):
-        return {"name": self.name, "position": self.position}
+        return {"name": self.name, "position": self.position, "index": self.index, "status": self.status}
 
     @classmethod
     def from_dict(cls, obj_dict):
@@ -1525,9 +1533,6 @@ class OvercookedGridworld(object):
                         obj = player.remove_object()
                         obj.set_status(0)
                         new_state.add_object(obj, i_pos)
-                        with open(f"{PATH}/DummyAI.txt", "a") as f:
-                            f.write("Dei drop no counter \n")
-                            f.close()
                         
                         
 
@@ -1655,9 +1660,6 @@ class OvercookedGridworld(object):
                         obj = player.remove_object()    #remove obj from player
                         obj.set_status(2)
                         new_state.players[1].set_object(obj, 1) #set obj inside astro
-                        with open(f"{PATH}/DummyAI.txt", "a") as f:
-                            f.write("Dei drop no astro somehow \n")
-                            f.close()
 
         return sparse_reward, shaped_reward
 
