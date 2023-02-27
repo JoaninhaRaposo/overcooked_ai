@@ -396,8 +396,8 @@ class ObjectState(object):
         """
         self.name = name
         self._position = tuple(position)
-        self.index = index
-        self.status = status
+        self._index = index
+        self._status = status
 
 
     @property
@@ -410,19 +410,19 @@ class ObjectState(object):
 
     @property
     def index(self):
-        return self.index
+        return self._index
     
     @index.setter
-    def index(self, index):
-        self.index = index
+    def index(self, new_index):
+        self._index = new_index
     
     @property
     def status(self):
-        return self.status
+        return self._status
     
     @status.setter
-    def status(self, status):
-        self.status = status
+    def status(self, new_status):
+        self._status = new_status
 
     def is_valid(self):
         return self.name in ["onion", "tomato", "dish"]
