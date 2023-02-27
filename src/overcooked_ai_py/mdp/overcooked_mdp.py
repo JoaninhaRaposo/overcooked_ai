@@ -428,7 +428,7 @@ class ObjectState(object):
         return self.name in ["onion", "tomato", "dish"]
 
     def deepcopy(self):
-        return ObjectState(self.name, self.position)
+        return ObjectState(self.name, self.position, self.index, self.status)
 
     def __eq__(self, other):
         return (
@@ -599,7 +599,7 @@ class SoupState(ObjectState):
         self._ingredients.append(ingredient)
 
     def add_ingredient_from_str(self, ingredient_str):
-        ingredient_obj = ObjectState(ingredient_str, self.position)
+        ingredient_obj = ObjectState(ingredient_str, self.position, self.index, self.status)
         self.add_ingredient(ingredient_obj)
 
     def pop_ingredient(self):
@@ -706,10 +706,10 @@ class SoupState(ObjectState):
         if finished and num_tomatoes + num_onions == 0:
             raise ValueError("Empty soup cannot be finished")
         onions = [
-            ObjectState(Recipe.ONION, position) for _ in range(num_onions)
+            ObjectState(Recipe.ONION, position,-1,-1) for _ in range(num_onions)
         ]
         tomatoes = [
-            ObjectState(Recipe.TOMATO, position) for _ in range(num_tomatoes)
+            ObjectState(Recipe.TOMATO, position, -1, -1) for _ in range(num_tomatoes)
         ]
         ingredients = onions + tomatoes
         soup = cls(position, ingredients, cooking_tick)
@@ -1417,7 +1417,7 @@ class OvercookedGridworld(object):
                             ), idx
                         )
                     else:
-                        player.set_object(ObjectState(obj, player.position), idx)
+                        player.set_object(ObjectState(obj, player.position, -1 , -1), idx)
             return start_state
 
         return start_state_fn
@@ -1561,13 +1561,13 @@ class OvercookedGridworld(object):
                     )
 
                     # Onion pickup from dispenser
-                    obj = ObjectState("onion", pos)
+                    obj = ObjectState("onion", pos, -1 , -1)
                     player.set_object(obj, player_idx)
                     
 
                 elif terrain_type == "T" and player.held_object is None:
                     # Tomato pickup from dispenser
-                    player.set_object(ObjectState("tomato", pos), player_idx)
+                    player.set_object(ObjectState("tomato", pos, -1 ,-1), player_idx)
                     
 
                 elif terrain_type == "D" and player.held_object is None:
@@ -1582,7 +1582,7 @@ class OvercookedGridworld(object):
                         ]
 
                     # Perform dish pickup from dispenser
-                    obj = ObjectState("dish", pos)
+                    obj = ObjectState("dish", pos, -1 , -1)
                     player.set_object(obj, player_idx)
 
                 elif terrain_type == "P" and not player.has_object():
