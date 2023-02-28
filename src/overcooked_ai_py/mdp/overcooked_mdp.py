@@ -743,7 +743,7 @@ class PlayerState(object):
         return (self.position, self.orientation)
 
     @property
-    def held_object(self):
+    def object_held(self):
         return self.held_object
     
     def has_object(self):
