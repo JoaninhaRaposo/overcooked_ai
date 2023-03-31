@@ -1343,15 +1343,15 @@ class OvercookedGridworld(object):
             f.close()
         
         if self.layout_name == "cramped_room":
-            obj = ObjectState("onion", (2,2),1,0)
+            obj = ObjectState("onion", (2,2),2,0) #2ª onion
             start_state.add_object(obj)
-            obj = ObjectState("onion", (1,8),2,0)
-            start_state.add_object(obj)
-
-            obj = ObjectState("onion", (10,9),3,0)
+            obj = ObjectState("onion", (1,8),1,0)  #1ª onion
             start_state.add_object(obj)
 
-            obj = ObjectState("onion", (9,12),4,0)
+            obj = ObjectState("onion", (10,9),4,0) #4ª onion
+            start_state.add_object(obj)
+
+            obj = ObjectState("onion", (9,12),3,0) #3ª onion 
             start_state.add_object(obj)
         
         with open(f"{PATH}/debugyy.txt", "w") as f:
