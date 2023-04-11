@@ -1,3 +1,5 @@
 ## Last update ##
-
-View comments from the issues: https://github.com/users/JoaninhaRaposo/projects/3/views/1?pane=issue&itemId=17444561 
+Created branches to the different levels
+*DEVEL* - level 1
+*Tutorial* - tutorial level
+TODO: *lvl2* - level 2
