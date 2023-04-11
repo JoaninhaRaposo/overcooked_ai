@@ -10,9 +10,9 @@
                 XX       XXXX X
                 X         XX  X
                 X             X
-                X     XXXXXXIXX
-                X     XX XXXIXX
-                X 2   IIIIIIIXX
+                X    IXXXXXXIXX
+                X    IXX XXXIXX
+                X 2  IIIIIIIIXX
                 XXXXXXXXXXXXXXX""",
     "start_bonus_orders": [],
     "start_all_orders" : [
