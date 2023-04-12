@@ -5,4 +5,4 @@ Created branches to the different levels
 
 *Tutorial* - tutorial level
 
-TODO: *lvl2* - level 2
+*lvl2* - level 2
