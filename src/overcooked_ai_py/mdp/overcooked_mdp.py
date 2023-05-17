@@ -384,7 +384,7 @@ class Recipe:
         return cls(**obj_dict)
 
 
-class ObjectState(object):
+class ObjectState(object): 
     """
     State of an object in OvercookedGridworld.
     """
@@ -1342,13 +1342,37 @@ class OvercookedGridworld(object):
             f.write(str(self.layout_name))
             f.close()
         
-        if self.layout_name == "cramped_room":
+        if self.layout_name == "cramped_room_tutorial":
             obj = ObjectState("onion", (7,5),1,0) #1ªonion
             start_state.add_object(obj)
             obj = ObjectState("onion", (6,9),2,0)  #2ª onion
             start_state.add_object(obj)
 
             obj = ObjectState("onion", (8,9),3,0) #3ª onion
+            start_state.add_object(obj)
+            
+        elif self.layout_name == "level_one":
+            obj = ObjectState("onion", (2,2),2,0) #2ª onion
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (1,8),1,0)  #1ª onion
+            start_state.add_object(obj)
+
+            obj = ObjectState("onion", (10,9),4,0) #4ª onion
+            start_state.add_object(obj)
+
+            obj = ObjectState("onion", (9,12),3,0) #3ª onion 
+            start_state.add_object(obj)
+
+        elif self.layout_name == "level_two":
+            obj = ObjectState("onion", (3,13),1,0) #1ª onion
+            start_state.add_object(obj)
+            obj = ObjectState("onion", (10,13),2,0)  #2ª onion
+            start_state.add_object(obj)
+
+            obj = ObjectState("onion", (6,1),3,0) #3ª onion
+            start_state.add_object(obj)
+
+            obj = ObjectState("onion", (8,3),4,0) #4ª onion 
             start_state.add_object(obj)
 
 
